@@ -85,19 +85,6 @@ export function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-export function drawPanel(ctx, x, y, w, h, imgKey = "board") {
-  const img = images[imgKey];
-  if (img) {
-    ctx.drawImage(img, x, y, w, h);
-  } else {
-    ctx.fillStyle = "rgba(10,14,30,0.9)";
-    ctx.strokeStyle = "#7aa2ff";
-    roundRect(ctx, x, y, w, h, 14);
-    ctx.fill();
-    ctx.stroke();
-  }
-}
-
 export function drawText(ctx, text, x, y, { font = "PixelBody", size = 18, color = "#fff", align = "center" } = {}) {
   ctx.fillStyle = color;
   ctx.font = `${size}px ${font}`;
