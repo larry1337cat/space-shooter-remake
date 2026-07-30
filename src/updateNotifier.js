@@ -6,7 +6,19 @@ function showBanner(onReload) {
   document.body.appendChild(banner);
 }
 
-export function watchForUpdates() {
+function whenAtMenu(isMenu, callback) {
+  if (isMenu()) {
+    callback();
+    return;
+  }
+  const interval = setInterval(() => {
+    if (!isMenu()) return;
+    clearInterval(interval);
+    callback();
+  }, 1000);
+}
+
+export function watchForUpdates(isMenu) {
   if (!("serviceWorker" in navigator)) return;
 
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -20,7 +32,7 @@ export function watchForUpdates() {
 
   navigator.serviceWorker.ready.then((registration) => {
     if (registration.waiting) {
-      showBanner(() => registration.waiting.postMessage("SKIP_WAITING"));
+      whenAtMenu(isMenu, () => showBanner(() => registration.waiting.postMessage("SKIP_WAITING")));
     }
 
     registration.addEventListener("updatefound", () => {
@@ -28,7 +40,7 @@ export function watchForUpdates() {
       if (!newWorker) return;
       newWorker.addEventListener("statechange", () => {
         if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-          showBanner(() => newWorker.postMessage("SKIP_WAITING"));
+          whenAtMenu(isMenu, () => showBanner(() => newWorker.postMessage("SKIP_WAITING")));
         }
       });
     });
