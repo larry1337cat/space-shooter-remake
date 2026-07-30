@@ -9,11 +9,13 @@ export class Input {
     this._lastX = 0;
     this._lastY = 0;
     this.tapQueue = [];
+    this.keyQueue = new Set();
 
     canvas.addEventListener("pointerdown", (e) => this._onDown(e));
     canvas.addEventListener("pointermove", (e) => this._onMove(e));
     window.addEventListener("pointerup", (e) => this._onUp(e));
     window.addEventListener("pointercancel", (e) => this._onUp(e));
+    window.addEventListener("keydown", (e) => this._onKeyDown(e));
     canvas.addEventListener(
       "touchstart",
       (e) => {
@@ -28,6 +30,12 @@ export class Input {
       },
       { passive: false }
     );
+  }
+
+  _onKeyDown(e) {
+    if (e.code === "Space") e.preventDefault();
+    if (e.repeat) return;
+    this.keyQueue.add(e.code);
   }
 
   _toCanvasCoords(clientX, clientY) {
@@ -71,6 +79,13 @@ export class Input {
     this.dx = 0;
     this.dy = 0;
     this.tapQueue.length = 0;
+    this.keyQueue.clear();
+  }
+
+  consumeKey(code) {
+    if (!this.keyQueue.has(code)) return false;
+    this.keyQueue.delete(code);
+    return true;
   }
 
   consumeTap(rect) {
