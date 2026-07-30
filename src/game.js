@@ -10,7 +10,7 @@ import { Button, Slider, drawPanel, drawText, drawBar, drawSkillButton, wrapText
 const BUTTON_TEXT_COLOR = "#0e2433";
 const MAX_PARTICLES = 260;
 
-const STATE = {
+export const STATE = {
   MENU: "MENU",
   STAGE_SELECT: "STAGE_SELECT",
   PLAYING: "PLAYING",
