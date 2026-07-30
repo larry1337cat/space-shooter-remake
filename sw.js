@@ -1,5 +1,6 @@
-const CORE_CACHE = "spaceshooter-core";
-const ASSET_CACHE = "spaceshooter-assets";
+const VERSION = "1.1";
+const CORE_CACHE = `spaceshooter-core-v${VERSION}`;
+const ASSET_CACHE = `spaceshooter-assets-v${VERSION}`;
 
 const CORE_FILES = [
   "index.html",
@@ -15,17 +16,17 @@ const CORE_FILES = [
   "src/entities.js",
   "src/waves.js",
   "src/ui.js",
+  "src/updateNotifier.js",
 ];
 
 const CORE_PATHS = new Set(CORE_FILES.map((f) => new URL(f, self.location.href).pathname));
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches
-      .open(CORE_CACHE)
-      .then((cache) => cache.addAll(CORE_FILES))
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil(caches.open(CORE_CACHE).then((cache) => cache.addAll(CORE_FILES)));
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data === "SKIP_WAITING") self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
