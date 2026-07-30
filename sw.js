@@ -1,4 +1,4 @@
-const VERSION = "1.1";
+const VERSION = "1.2";
 const CORE_CACHE = `spaceshooter-core-v${VERSION}`;
 const ASSET_CACHE = `spaceshooter-assets-v${VERSION}`;
 
