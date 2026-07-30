@@ -5,6 +5,12 @@ export const CONFIG = {
   SAVE_KEY: "voidbreaker_save_v1",
 };
 
+export const KEYBINDS = {
+  shield: "Space",
+  pierce: "KeyQ",
+  overdrive: "KeyE",
+};
+
 export const IMAGE_MANIFEST = {
   bg: "images/bg.png",
   bgStage1: "images/pixel_background1.png",
