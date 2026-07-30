@@ -1,4 +1,4 @@
-import { CONFIG } from "./config.js";
+import { CONFIG, KEYBINDS } from "./config.js";
 import { images } from "./assetLoader.js";
 import { Input } from "./input.js";
 import * as AudioMgr from "./audio.js";
@@ -346,9 +346,9 @@ export class Game {
     const shieldRect = { x: 20, y: CONFIG.HEIGHT - 90, w: 64, h: 64 };
     const pierceRect = { x: CONFIG.WIDTH / 2 - 32, y: CONFIG.HEIGHT - 90, w: 64, h: 64 };
     const odRect = { x: CONFIG.WIDTH - 84, y: CONFIG.HEIGHT - 90, w: 64, h: 64 };
-    if (this.player.shieldUnlocked && this.input.consumeTap(shieldRect)) this.player.activateShield();
-    if (this.player.pierceUnlocked && this.input.consumeTap(pierceRect)) this.player.activatePierce();
-    if (this.player.overdriveUnlocked && this.input.consumeTap(odRect)) this.player.activateOverdrive();
+    if (this.player.shieldUnlocked && (this.input.consumeTap(shieldRect) || this.input.consumeKey(KEYBINDS.shield))) this.player.activateShield();
+    if (this.player.pierceUnlocked && (this.input.consumeTap(pierceRect) || this.input.consumeKey(KEYBINDS.pierce))) this.player.activatePierce();
+    if (this.player.overdriveUnlocked && (this.input.consumeTap(odRect) || this.input.consumeKey(KEYBINDS.overdrive))) this.player.activateOverdrive();
 
     this.bullets.forEach((b) => b.update(dt, this.player));
     pruneDead(this.bullets);
