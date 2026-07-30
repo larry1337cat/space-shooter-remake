@@ -1,6 +1,6 @@
 import { CONFIG } from "./config.js";
 import { preloadAll } from "./assetLoader.js";
-import { Game } from "./game.js";
+import { Game, STATE } from "./game.js";
 import { watchForUpdates } from "./updateNotifier.js";
 
 const canvas = document.getElementById("game");
@@ -10,6 +10,8 @@ canvas.height = CONFIG.HEIGHT;
 const loadingEl = document.getElementById("loading");
 const progressFill = document.getElementById("progress-fill");
 const progressLabel = document.getElementById("progress-label");
+
+let currentGame = null;
 
 function setProgress(p) {
   const pct = Math.round(p * 100);
@@ -22,6 +24,7 @@ async function boot() {
   await preloadAll(setProgress);
 
   const game = new Game(canvas);
+  currentGame = game;
   requestAnimationFrame(game.loop);
 
   loadingEl.classList.add("hidden");
@@ -29,6 +32,6 @@ async function boot() {
   setTimeout(() => loadingEl.remove(), 400);
 }
 
-window.addEventListener("load", watchForUpdates);
+window.addEventListener("load", () => watchForUpdates(() => !currentGame || currentGame.state === STATE.MENU));
 
 boot();
