@@ -21,7 +21,6 @@ export const IMAGE_MANIFEST = {
 
   ship: "images/spaceship_remake.png",
 
-  bullet: "images/bullet.png",
   bulletBlue: "images/bullet_blue.png",
   bulletRed: "images/bullet_red.png",
   bulletAimed: "images/bullet2.png",
@@ -29,7 +28,6 @@ export const IMAGE_MANIFEST = {
 
   enemy1: "images/enemy1_remake.png",
   enemy2: "images/enemy2_remake.png",
-  enemy3: "images/enemy3_remake.png",
   enemy3Turret: "images/enemy3_turret.png",
   enemy4: "images/enemy4_remake.png",
   enemy5: "images/Enemy5_remake.png",
@@ -62,38 +60,18 @@ export const IMAGE_MANIFEST = {
   skillButton3: "images/skill_button3.png",
   skillIcon1: "images/skill110icon.png",
   skillIcon2: "images/skill210icon.png",
-  slotAtk: "images/slot_atk.png",
-  slotDef: "images/slot_def.png",
-  slotSkill: "images/slot_skill.png",
-
-  board: "images/board.png",
-  board2: "images/board2.png",
-  board3: "images/board3.png",
-  board4: "images/board4.png",
-  board5: "images/board5.png",
-  boardClose: "images/board_close_button.png",
-  boardClosePressed: "images/board_close_button_pressed.png",
 
   button: "images/button.png",
   buttonPressed: "images/button_pressed.png",
-  backButton: "images/back_button_remake.png",
-  backButtonPressed: "images/back_button_remake_pressed.png",
   startButton: "images/start_button.png",
   startButtonPressed: "images/start_button2.png",
-  creditButton: "images/credit_button_remake.png",
   creditImage: "images/credit_image.jpg",
-  winButton: "images/win_button.png",
-
-  lock: "images/lock.png",
-  upgradeMenuBg: "images/upgrade_menu_background.png",
-  upgradeTree: "images/upgrade_tree.png",
 
   stage1: "images/stage1.png",
   stage2: "images/stage2.png",
   stage3: "images/stage3.png",
   stage4: "images/stage4.png",
   stage5: "images/stage5.png",
-  stageFrame: "images/stage_img_frame.png",
 
   slider: "images/slider.png",
   sliderButton: "images/slider_button.png",
