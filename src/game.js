@@ -2,10 +2,10 @@ import { CONFIG, KEYBINDS } from "./config.js";
 import { images } from "./assetLoader.js";
 import { Input } from "./input.js";
 import * as AudioMgr from "./audio.js";
-import { loadSave, writeSave, resetSave } from "./save.js";
+import { loadSave, writeSave } from "./save.js";
 import { Player, Bullet, Pickup, spawnBurst, spawnSparks, Smoke, Enemy, BossEcho, ExplosionHazard } from "./entities.js";
 import { STAGES, getStage, buildWaveEnemies } from "./waves.js";
-import { Button, Slider, drawPanel, drawText, drawBar, drawSkillButton, wrapText } from "./ui.js";
+import { Button, Slider, drawText, drawBar, drawSkillButton, wrapText } from "./ui.js";
 
 const BUTTON_TEXT_COLOR = "#0e2433";
 const MAX_PARTICLES = 260;
@@ -191,7 +191,7 @@ export class Game {
 
   _godModeStats() {
     return {
-      upgrades: { damage: 50, maxHealth: 1000, fireRate: 10, shieldCooldown: this.save.upgrades.shieldCooldown, overdrive: 6, pierce: 6 },
+      upgrades: { damage: 50, maxHealth: 1000, fireRate: 10, shieldCooldown: 6, overdrive: 6, pierce: 6 },
       skillUnlocked: { shield: true, overdrive: true, pierce: true },
     };
   }
@@ -511,6 +511,13 @@ export class Game {
   }
 
   _drainEchoQueues(echo) {
+    if (echo.summonQueue && echo.summonQueue.length) {
+      for (const spec of echo.summonQueue) {
+        if (spec.type === "echo") this.enemies.push(new BossEcho(spec.stage));
+        else this.enemies.push(new Enemy(spec.enemyType, spec.x, spec.y));
+      }
+      echo.summonQueue.length = 0;
+    }
     if (echo.hazardQueue && echo.hazardQueue.length) {
       for (const spec of echo.hazardQueue) {
         this.hazards.push(new ExplosionHazard(spec.x, spec.y, spec.radius, spec.damage));
